@@ -54,7 +54,7 @@ node {
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			}else{
-                rmsg = bat returnStdout: true, script: "sfdx force:mdapi:convert -r ${PACK_DIR} --rootdir ${WORKSPACE}"
+                rmsg = bat returnStdout: true, script: "sfdx force:mdapi:convert -d ${PACK_DIR} --rootdir ${WORKSPACE}"
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG} -w 100"
 			   //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			}
