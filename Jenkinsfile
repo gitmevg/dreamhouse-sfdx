@@ -35,7 +35,7 @@ node {
 			println rc
             
             //Create Folder Named: manifest
-            def folder = new Flie( 'manifest' )
+            def folder = new File( 'manifest' )
             
             if( !folder.exists() ) {
             //Create all folders up-to and including B
