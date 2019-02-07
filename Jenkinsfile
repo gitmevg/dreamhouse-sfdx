@@ -47,6 +47,8 @@ node {
 				rcr = sh returnStdout: true, script: "mkdir -p ${PACK_DIR}"
 			}else{
 			   rcr = bat returnStdout: true, script: "mkdir ${PACK_DIR}"
+               sleep(time:120,unit:"SECONDS") 
+               rmsg = rmsg = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR}"  
                
 			}
             println rcr
