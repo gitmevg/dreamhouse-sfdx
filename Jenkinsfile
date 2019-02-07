@@ -4,6 +4,7 @@ node {
 
     def BUILD_NUMBER=env.BUILD_NUMBER
     def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"
+    def PACK_DIR="MyPackage${BUILD_NUMBER}"
     def SFDC_USERNAME
 
     def HUB_ORG=env.HUB_ORG_DH
@@ -41,11 +42,12 @@ node {
             //Create all folders up-to and including B
             //folder.mkdirs()
             //}
-            node {
-            dir ('manifest') {
-                    writeFile file:'dummy', text:''
-                }
-            }
+            if (isUnix()) {
+				rcr = sh returnStdout: true, script: "mkdir -p ${PACK_DIR}"
+			}else{
+			   rcr = bat returnStdout: true, script: "mkdir ${PACK_DIR}"
+			}
+            println rcr
             
 			// need to pull out assigned username
 			if (isUnix()) {
