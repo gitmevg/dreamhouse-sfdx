@@ -47,9 +47,18 @@ node {
 				rcr = sh returnStdout: true, script: "mkdir -p ${PACK_DIR}"
 			}else{
 			   rcr = bat returnStdout: true, script: "mkdir ${PACK_DIR}"
-               rmsg = bat returnStdout: true, script: "sfdx force:mdapi:convert -d ${PACK_DIR} --rootdir ${WORKSPACE}" 
+               
 			}
             println rcr
+            
+            //convert source
+            if (isUnix()) {
+				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:convert -d ${PACK_DIR} --rootdir ${WORKSPACE}"
+			}else{
+               
+			    rmsg = rmsg = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR} --rootdir ${WORKSPACE}" 
+			   //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
+			}
             
 			// need to pull out assigned username
 			if (isUnix()) {
