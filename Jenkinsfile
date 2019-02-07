@@ -35,12 +35,12 @@ node {
 			println rc
             
             //Create Folder Named: manifest
-            //def manifest = new Flie()
+            def folder = new Flie( 'manifest' )
             
-            //if( !manifest.exists() ) {
-            // Create all folders up-to and including B
-            //manifest.mkdirs()
-            //}
+            if( !folder.exists() ) {
+            //Create all folders up-to and including B
+            folder.mkdirs()
+            }
             
 			// need to pull out assigned username
 			if (isUnix()) {
