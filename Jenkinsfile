@@ -35,11 +35,14 @@ node {
 			println rc
             
             //Create Folder Named: manifest
-            def folder = new File( 'manifest' )
+            //def folder = new File( 'manifest' )
             
-            if( !folder.exists() ) {
+            //if( !folder.exists() ) {
             //Create all folders up-to and including B
-            folder.mkdirs()
+            //folder.mkdirs()
+            //}
+            node {
+            dir ('manifest')
             }
             
 			// need to pull out assigned username
