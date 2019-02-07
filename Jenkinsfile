@@ -35,7 +35,7 @@ node {
 			println rc
             
             //Create Folder Named: manifest
-            def manifest = new File()
+            def manifest = new File
             
             if( !manifest.exists() ) {
             // Create all folders up-to and including B
