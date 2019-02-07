@@ -33,7 +33,17 @@ node {
             if (rc != 0) { error 'hub org authorization failed' }
 
 			println rc
+            
+            //Create Folder Named: manifest
+            
+            if (isUnix()) {
+				crfl = sh returnStdout: true, script: "mkdir manifest"
+			}else{
+			   crfl = bat returnStdout: true, script: "mkdir manifest"
+			}
 			
+            println crfl
+            
 			// need to pull out assigned username
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
