@@ -56,7 +56,7 @@ node {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:convert -d ${PACK_DIR} --rootdir ${WORKSPACE}"
 			}else{
                
-			    rmsg = rmsg = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR} --rootdir ${WORKSPACE}" 
+			    rmsg = rmsg = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR}" 
 			   //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			}
             
