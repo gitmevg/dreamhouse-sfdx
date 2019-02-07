@@ -36,11 +36,11 @@ node {
             
             //Create Folder Named: manifest
             
-            if (isUnix()) {
-				crfl = sh returnStdout: true, script: "mkdir manifest"
-			}else{
-			   crfl = bat returnStdout: true, script: "mkdir manifest"
-			}
+            //if (isUnix()) {
+			//	crfl = sh returnStdout: true, script: "mkdir manifest"
+			//}else{
+			//   crfl = bat returnStdout: true, script: "mkdir manifest"
+			//}
 			
             println crfl
             
