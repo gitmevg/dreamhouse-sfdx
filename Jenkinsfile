@@ -63,7 +63,7 @@ node {
 			//}
             
             //sleep time for Jenkins
-             sleep(time:120,unit:"SECONDS")
+             //sleep(time:120,unit:"SECONDS")
 			// need to pull out assigned username
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
