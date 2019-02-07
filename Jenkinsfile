@@ -6,6 +6,7 @@ node {
     def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"
     def PACK_DIR="MyPackage${BUILD_NUMBER}"
     def SFDC_USERNAME
+    def workspace = env.WORKSPACE
 
     def HUB_ORG=env.HUB_ORG_DH
     def SFDC_HOST = env.SFDC_HOST_DH
@@ -53,7 +54,7 @@ node {
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			}else{
-                rmsg = bat returnStdout: true, script: "sfdx force:mdapi:convert -d ${PACK_DIR}"
+                rmsg = bat returnStdout: true, script: "sfdx force:mdapi:convert -d ${PACK_DIR} --rootdir ${WORKSPACE}"
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG} -w 100"
 			   //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			}
