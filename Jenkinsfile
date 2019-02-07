@@ -42,7 +42,9 @@ node {
             //folder.mkdirs()
             //}
             node {
-            dir ('manifest')
+            dir ('manifest') {
+                    writeFile file:'dummy', text:''
+                }
             }
             
 			// need to pull out assigned username
