@@ -36,13 +36,10 @@ node {
             
             //Create Folder Named: manifest
             
-            //if (isUnix()) {
-			//	crfl = sh returnStdout: true, script: "mkdir manifest"
-			//}else{
-			//   crfl = bat returnStdout: true, script: "mkdir manifest"
-			//}
-			
-            //println crfl
+            if( !manifest.exists() ) {
+            // Create all folders up-to and including B
+            manifest.mkdirs()
+            }
             
 			// need to pull out assigned username
 			if (isUnix()) {
