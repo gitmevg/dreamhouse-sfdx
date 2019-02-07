@@ -42,7 +42,7 @@ node {
 			//   crfl = bat returnStdout: true, script: "mkdir manifest"
 			//}
 			
-            println crfl
+            //println crfl
             
 			// need to pull out assigned username
 			if (isUnix()) {
