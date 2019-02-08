@@ -36,56 +36,34 @@ node {
 
 			println rc
             
-            //Create Folder Named: manifest
-            //def folder = new File( 'manifest' )
-            
-            //if( !folder.exists() ) {
-            //Create all folders up-to and including B
-            //folder.mkdirs()
-            //}
+            //Create Folder Packaging Folder
+           
             if (isUnix()) {
 				rcr = sh returnStdout: true, script: "mkdir -p ${PACK_DIR}"
 			}else{
 			   rcr = bat returnStdout: true, script: "mkdir ${PACK_DIR}"
-            //   sleep(time:30,unit:"SECONDS") 
-            //   rmsg = rmsg = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR}"  
                rcon = bat returnStatus: true, script: "sfdx force:source:convert -d ${PACK_DIR}" 
 			}
             print rcon
             
             //convert source
-           // if (isUnix()) {
-				//rmsg = sh returnStdout: true, script: "${toolbelt} force:source:convert -d ${PACK_DIR} --rootdir ${WORKSPACE}"
-			//}else{
-               
-			    //rmsg = rmsg = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR}" 
-			   //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
-			//}
-            
-            //sleep time for Jenkins
-             //sleep(time:120,unit:"SECONDS")
-			// need to pull out assigned username
+           
             if (rcon!=0) {
-                print "Check it"
-                print "Job Failed"
                 error("Build failed because of $rcon")
             }
             else{
-			if (isUnix()) {
-				rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
-			}else{
-                
-			    //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
+			    if (isUnix()) {
+				    rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
+			    }
+                else{
+                    
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
                 print rmsg
                 print "Job Successful"
                 
-			}
+			    }
             }
 			  
-           
-            //println('Hello from a Job DSL script!')
-            //println(rmsg)
         }
     }
 }
