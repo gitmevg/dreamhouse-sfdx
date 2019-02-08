@@ -59,7 +59,7 @@ node {
                     
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
                 print rmsg
-                print "Job Successful"
+                print "Build Triggered Successfully... Please check Status from Salesforce"
                 
 			    }
             }
