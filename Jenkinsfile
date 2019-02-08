@@ -65,6 +65,10 @@ node {
             //sleep time for Jenkins
              //sleep(time:120,unit:"SECONDS")
 			// need to pull out assigned username
+            if (rcon!=0) {
+                print "Check it"
+            }
+            else{
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			}else{
@@ -72,6 +76,7 @@ node {
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			   //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			}
+            }
 			  
             printf rmsg
             println('Hello from a Job DSL script!')
