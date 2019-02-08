@@ -67,6 +67,7 @@ node {
 			// need to pull out assigned username
             if (rcon!=0) {
                 print "Check it"
+                print "Job Failed"
             }
             else{
 			if (isUnix()) {
@@ -75,12 +76,14 @@ node {
                
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			   //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
+                printf rmsg
+                print "Job Successful"
 			}
             }
 			  
-            printf rmsg
-            println('Hello from a Job DSL script!')
-            println(rmsg)
+            
+            //println('Hello from a Job DSL script!')
+            //println(rmsg)
         }
     }
 }
