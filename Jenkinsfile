@@ -77,7 +77,7 @@ node {
                 print "Job Successful1"
 			    //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
-                printf rmsg
+                print rmsg
                 print "Job Successful2"
                 
 			}
