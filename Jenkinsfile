@@ -42,14 +42,14 @@ node {
 				rcr = sh returnStdout: true, script: "mkdir -p ${PACK_DIR}"
 			}else{
 			   rcr = bat returnStdout: true, script: "mkdir ${PACK_DIR}"
-               rcon = bat returnStatus: true, script: "sfdx force:source:convert -dont ${PACK_DIR}" 
+               rcon = bat returnStatus: true, script: "sfdx force:source:convert -d ${PACK_DIR}" 
 			}
             print rcon
             
             //convert source
            
             if (rcon!=0) {
-                error("Build failed because of $rcon")
+                error("Build failed because of wrong conversion")
             }
             else{
 			    if (isUnix()) {
