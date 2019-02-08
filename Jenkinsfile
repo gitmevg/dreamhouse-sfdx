@@ -58,9 +58,11 @@ node {
                 else{
                     
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
-                print rmsg
-                sfdx force:mdapi:deploy:report -u er.pushpeshbisht@curious-bear-436313.com    
+                print rmsg    
+                    
                 print "Build Triggered Successfully... Please check Status from Salesforce"
+                rmsg = bat returnStdout: true, script:sfdx force:mdapi:deploy:report -u er.pushpeshbisht@curious-bear-436313.com
+                print rmsg  
                 
 			    }
             }
