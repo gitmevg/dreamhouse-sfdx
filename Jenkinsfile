@@ -68,6 +68,7 @@ node {
             if (rcon!=0) {
                 print "Check it"
                 print "Job Failed"
+                error("Build failed because of $rcon")
             }
             else{
 			if (isUnix()) {
@@ -82,7 +83,7 @@ node {
 			}
             }
 			  
-            error("Build failed because of $rcon")
+           
             //println('Hello from a Job DSL script!')
             //println(rmsg)
         }
