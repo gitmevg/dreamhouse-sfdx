@@ -52,7 +52,6 @@ node {
                rcon = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR}" 
 			}
             print rcon
-            print returnStdout
             
             //convert source
            // if (isUnix()) {
