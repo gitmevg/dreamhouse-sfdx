@@ -68,7 +68,7 @@ node {
             if (rcon!=0) {
                 print "Check it"
                 print "Job Failed"
-                error("Build failed because of $rcon")
+                //error("Build failed because of $rcon")
             }
             else{
 			if (isUnix()) {
