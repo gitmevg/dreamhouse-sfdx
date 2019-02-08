@@ -49,7 +49,7 @@ node {
 			   rcr = bat returnStdout: true, script: "mkdir ${PACK_DIR}"
             //   sleep(time:30,unit:"SECONDS") 
             //   rmsg = rmsg = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR}"  
-               rcon = bat returnStatus: true, script: "sfdx force:source:convert -d ${PACK_DIR}" 
+               rcon = bat returnStatus: true, script: "sfdx force:source:convert -dont ${PACK_DIR}" 
 			}
             print rcon
             
@@ -78,6 +78,7 @@ node {
 			   //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
                 printf rmsg
                 print "Job Successful"
+                error("Build failed because of this and that..")
 			}
             }
 			  
