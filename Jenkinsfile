@@ -48,10 +48,10 @@ node {
 			}else{
 			   rcr = bat returnStdout: true, script: "mkdir ${PACK_DIR}"
             //   sleep(time:30,unit:"SECONDS") 
-               rmsg = rmsg = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR}"  
-               
+            //   rmsg = rmsg = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR}"  
+               rcon = bat returnStdout: true, script: "sfdx force:source:convert -d ${PACK_DIR}" 
 			}
-            println rcr
+            print rcon
             
             //convert source
            // if (isUnix()) {
