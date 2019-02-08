@@ -78,11 +78,11 @@ node {
 			   //rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
                 printf rmsg
                 print "Job Successful"
-                error("Build failed because of this and that..")
+                
 			}
             }
 			  
-            
+            error("Build failed because of $rcon")
             //println('Hello from a Job DSL script!')
             //println(rmsg)
         }
