@@ -67,7 +67,8 @@ node {
                         rpackval = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                         
                         while (rpackval.contains("InProgress")) {                        
-                            sleep(time:1,unit:"SECONDS")                        
+                            sleep(time:2,unit:"SECONDS")    
+                            print rpackval
                         }
                         print rpackval
                     }
