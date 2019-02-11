@@ -53,26 +53,26 @@ node {
             }
             else{
 			    if (isUnix()) {
-				    rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
+				    rpackval = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
 			    }
                 else{
                     
-			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG} -c"
+			    rpackval = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG} -c"
                 print rmsg    
                 
-                    if (rmsg.contains("InProgress") || rmsg.contains("Queued")) {                     
+                    if (rpackval.contains("InProgress") || rpackval.contains("Queued")) {                     
                         print "Validation is In Progress..."                                                
                         //sleep(time:1,unit:"SECONDS")
                         //Check Validation Report
-                        rpackval = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
+                        rpackvalrep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                         
-                        while (rpackval.contains("InProgress")) {                        
+                        while (rpackvalrep.contains("InProgress")) {                        
                             sleep(time:1,unit:"SECONDS")    
-                            rpackval = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
+                            rpackvalrep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                         }
-                        print rpackval
+                        print rpackvalrep
                         
-                        if (rpackval.contains(Succeeded)) {
+                        if (rpackvalrep.contains("Succeeded")) {
                             
                             rpackdep = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
                         }
