@@ -60,7 +60,7 @@ node {
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG} -c"
                 print rmsg    
                 
-                    if (rmsg.contains("InProgress")) {
+                    if (rmsg.contains("InProgress") || rmsg.contains("Queued")) {
                      
                         print "Validation is In Progress..."
                                                 
