@@ -58,7 +58,7 @@ node {
                 else{
                     
 			    rpackval = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG} -c"
-                print rmsg    
+                print rpackval    
                 
                     if (rpackval.contains("InProgress") || rpackval.contains("Queued")) {                     
                         print "Validation is In Progress..."                                                
