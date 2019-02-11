@@ -107,7 +107,18 @@ node {
                 //print "Build Triggered Successfully... Please check Status from Salesforce" 
                 //rmsg =bat returnStatus: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                  //sleep(time:30,unit:"SECONDS")   
-                //print rmsg                   
+                //print rmsg   
+                     if (rpackvalrep.contains("Succeeded")) {
+                            print "Test class Code coverage starts"
+							rpackdep = "bat returnStdout: true, script:sfdx force:apex:test:run -c -u ${HUB_ORG} -r human"
+                            print rpackdep
+                              }
+							  
+                        else {
+                        
+                            print "Code Coverage Failed..."
+                        
+                        }
                 
 			    }
             }
