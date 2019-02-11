@@ -81,10 +81,10 @@ node {
                                 print "Deployment is In Progress..."
                                 rpackdeprep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                                 while (rpackdeprep.contains("InProgress") || rpackdeprep.contains("Pending") || rpackdep.contains("Queued")) {
-                                
+                                    print "Last while"
                                     sleep(time:1,unit:"SECONDS")    
                                     rpackdeprep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
-                                    
+                                    print rpackdeprep
                                 }
                                 
                                 print rpackdeprep
