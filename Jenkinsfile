@@ -66,7 +66,7 @@ node {
                         //Check Validation Report
                         rpackvalrep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                         
-                        while (rpackvalrep.contains("InProgress")) {                        
+                        while (rpackvalrep.contains("InProgress") || rpackvalrep.contains("Pending")) {                        
                             sleep(time:1,unit:"SECONDS")    
                             rpackvalrep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                         }
