@@ -76,6 +76,12 @@ node {
                             
                             rpackdep = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
                         }
+                        
+                        else {
+                        
+                            print "Package Validation Failed..."
+                        
+                        }
                                                 
                     }
                     
