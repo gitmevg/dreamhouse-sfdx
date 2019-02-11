@@ -76,7 +76,21 @@ node {
                         if (rpackvalrep.contains("Succeeded")) {
                             print "Inside If Dep Loop"
                             rpackdep = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
-                            print rpackdep                            
+                            print rpackdep
+                            if (rpackdep.contains("InProgress") || rpackdep.contains("Queued") || rpackdep.contains("Pending")) {
+                                print "Deployment is In Progress..."
+                                rpackdeprep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
+                                while (rpackdeprep.contains("InProgress") || rpackdeprep.contains("Pending") || rpackdep.contains("Queued")) {
+                                
+                                    sleep(time:1,unit:"SECONDS")    
+                                    rpackdeprep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
+                                    
+                                }
+                                
+                                print rpackdeprep
+                            }
+                    
+                            
                         }
                         
                         else {
