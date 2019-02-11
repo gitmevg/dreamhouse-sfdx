@@ -110,7 +110,7 @@ node {
                 //print rmsg   
                      if (rpackvalrep.contains("Succeeded")) {
                             print "Test class Code coverage starts"
-							rpackdep = "bat returnStdout: true, script:sfdx force:apex:test:run -c -u ${HUB_ORG} -r human"
+							rpackdep = bat returnStdout: true, script:"sfdx force:apex:test:run -c -u ${HUB_ORG} -r human"
                             sleep(time:30,unit:"SECONDS")
                             print rpackdep
                               }
