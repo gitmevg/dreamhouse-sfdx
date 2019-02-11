@@ -71,6 +71,12 @@ node {
                             rpackval = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                         }
                         print rpackval
+                        
+                        if (rpackval.contains(Succeeded)) {
+                            
+                            rpackdep = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
+                        }
+                                                
                     }
                     
                     else {                     
