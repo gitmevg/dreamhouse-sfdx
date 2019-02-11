@@ -59,10 +59,25 @@ node {
                     
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG} -c"
                 print rmsg    
-                print "Build Triggered Successfully... Please check Status from Salesforce" 
-                rmsg =bat returnStatus: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
-                 sleep(time:30,unit:"SECONDS")   
-                print rmsg
+                
+                    if (rmsg.contains("InProgress")) {
+                     
+                        print "Validation is In Progress..."
+                                                
+                    }
+                    
+                    else {
+                     
+                        print "Something wrong with the Syntax..."
+                        
+                    }
+                    
+                    
+                    
+                //print "Build Triggered Successfully... Please check Status from Salesforce" 
+                //rmsg =bat returnStatus: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
+                 //sleep(time:30,unit:"SECONDS")   
+                //print rmsg
                     
                 
 			    }
