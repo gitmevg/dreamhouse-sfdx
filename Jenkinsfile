@@ -71,9 +71,10 @@ node {
                             rpackvalrep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                         }
                         print rpackvalrep
+                        print "Before Dep Loop"
                         
                         if (rpackvalrep.contains("Succeeded")) {
-                            
+                            print "Inside If Dep Loop"
                             rpackdep = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
                         }
                         
