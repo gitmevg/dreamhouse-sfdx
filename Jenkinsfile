@@ -60,25 +60,25 @@ node {
 			    rmsg = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG} -c"
                 print rmsg    
                 
-                    if (rmsg.contains("InProgress") || rmsg.contains("Queued")) {
-                     
-                        print "Validation is In Progress..."
-                                                
-                    }
-                    
-                    else {
-                     
-                        print "Something wrong with the Syntax..."
+                    if (rmsg.contains("InProgress") || rmsg.contains("Queued")) {                     
+                        print "Validation is In Progress..."                                                
+                        //sleep(time:1,unit:"SECONDS")
+                        //Check Validation Report
+                        rpackval = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                         
+                        while (rpackval.contains("InProgress")) {                        
+                            sleep(time:1,unit:"SECONDS")                        
+                        }
+                        print rpackval
                     }
                     
-                    
-                    
+                    else {                     
+                        print "Something wrong with Validation Syntax..."                      
+                    }
                 //print "Build Triggered Successfully... Please check Status from Salesforce" 
                 //rmsg =bat returnStatus: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
                  //sleep(time:30,unit:"SECONDS")   
-                //print rmsg
-                    
+                //print rmsg                   
                 
 			    }
             }
