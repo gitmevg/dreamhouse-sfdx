@@ -8,11 +8,11 @@ node {
     def SFDC_USERNAME
     def workspace = env.WORKSPACE
 
-    def HUB_ORG=env.HUB_ORG_DH_SB
-    def SFDC_HOST = env.SFDC_HOST_DH_SB
-    def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH_SB
+    def HUB_ORG=env.HUB_ORG_DH
+    def SFDC_HOST = env.SFDC_HOST_DH
+    def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def MYPATH = env.PATH
-    def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH_SB
+    def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
 
     println 'KEY IS' 
     println JWT_KEY_CRED_ID
