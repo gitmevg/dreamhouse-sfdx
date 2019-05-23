@@ -24,106 +24,25 @@ node {
         // when running in multi-branch job, one must issue this command
         checkout scm
     }
-
-    withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
-        stage('Deploye Code') {
-            if (isUnix()) {
-                rc = sh returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-            }else{
-                 rc = bat returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-            }
-            if (rc != 0) { error 'hub org authorization failed' }
-
-			println rc
-            
-            //Create Folder Packaging Folder
-           
-            if (isUnix()) {
-				rcr = sh returnStdout: true, script: "mkdir -p ${PACK_DIR}"
-			}else{
-			   rcr = bat returnStdout: true, script: "mkdir ${PACK_DIR}"
-               rcon = bat returnStatus: true, script: "sfdx force:source:convert -d ${PACK_DIR}" 
-			}
-            print rcon
-            
-            //convert source
-           
-            if (rcon!=0) {
-                error("Build failed because of wrong conversion")
-            }
-            else{
-			    if (isUnix()) {
-				    rpackval = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
-			    }
-                else{
-                    
-			    rpackval = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG} -c"
-                print rpackval    
-                
-                    if (rpackval.contains("InProgress") || rpackval.contains("Queued")) {                     
-                        print "Validation is In Progress..."                                                
-                        //sleep(time:1,unit:"SECONDS")
-                        //Check Validation Report
-                        rpackvalrep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
-                        
-                        while (rpackvalrep.contains("InProgress") || rpackvalrep.contains("Pending")) {                        
-                            sleep(time:1,unit:"SECONDS")    
-                            rpackvalrep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
-                        }
-                        print rpackvalrep
-                        print "Before Dep Loop"
-                        
-                        if (rpackvalrep.contains("Succeeded")) {
-                            print "Inside If Dep Loop"
-                            rpackdep = bat returnStdout: true, script: "sfdx force:mdapi:deploy -d ${PACK_DIR} -u ${HUB_ORG}"
-                            print rpackdep
-                            if (rpackdep.contains("InProgress") || rpackdep.contains("Queued") || rpackdep.contains("Pending")) {
-                                print "Deployment is In Progress..."
-                                rpackdeprep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
-                                while (rpackdeprep.contains("InProgress") || rpackdeprep.contains("Pending")) {
-                                    print "Last while"
-                                    sleep(time:1,unit:"SECONDS")    
-                                    rpackdeprep = bat returnStdout: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
-                                    print rpackdeprep
-                                }
-                                
-                                print rpackdeprep
-                            }
-                    
-                            
-                        }
-                        
-                        else {
-                        
-                            print "Package Validation Failed..."
-                        
-                        }
-                                                
-                    }
-                    
-                    else {                     
-                        print "Something wrong with Validation Syntax..."                      
-                    }
-                //print "Build Triggered Successfully... Please check Status from Salesforce" 
-                //rmsg =bat returnStatus: true, script:"sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
-                 //sleep(time:30,unit:"SECONDS")   
-                //print rmsg   
-                     if (rpackvalrep.contains("Succeeded")) {
-                            print "Test class Code coverage starts"
-							rpackdep = bat returnStdout: true, script:"sfdx force:apex:test:run -c -u ${HUB_ORG} -r human"
-                            sleep(time:30,unit:"SECONDS")
-                            print rpackdep
-                              }
-							  
-                        else {
-                        
-                            print "Code Coverage Failed..."
-                        
-                        }
-                
-			    }
-            }
-			  
-        }
+   // if (isUnix()) {
+     //            rc = sh returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+       //     }else{
+         //        rc = bat returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+           // }
+    
+    stage('Sonarqube') {
+    environment {
+        scannerHome = tool 'LocalSonarScanner'
     }
+    steps {
+        withSonarQubeEnv('sonarqube') {
+            // sh "${scannerHome}/bin/sonar-scanner"
+            ss = bat returnStdout: true, script: "%scannerHome%\bin\sonar-scanner.bat"
+        }
+        timeout(time: 10, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+        print ss
+    }
+}
 }
