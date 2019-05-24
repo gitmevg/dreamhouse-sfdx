@@ -39,7 +39,7 @@ node {
                 if (qg.status != 'OK') {
                     error "Pipeline Aborted due to Quality Gate failure: ${qg.status}"
                 }
-                print "Pipeline Quality Gate Status: ${qg.status}, proceeding with BUILD & Deploy Proedures..."   
+                print "Pipeline Quality Gate Status: ${qg.status}, proceeding with BUILD & Deploy Procedures..."   
             }
         }
         
@@ -120,13 +120,10 @@ node {
                  //sleep(time:30,unit:"SECONDS")   
                 //print rmsg   
                      if (rpackvalrep.contains("Succeeded")) {
-                            print "Test class Code coverage starts"
-							rpackdep = bat returnStdout: true, script:"sfdx force:apex:test:run -c -u ${HUB_ORG} -r human"
-                            sleep(time:30,unit:"SECONDS")
-                            print rpackdep
-                              }
+                            print "Deployment Completed Successfully. Please proceed with Validation..."
+					}
                     else {
-                        print "Code Coverage Failed..."
+                        print "Deployment Failed. Please check the logs..."
                     }
                 }
             }
