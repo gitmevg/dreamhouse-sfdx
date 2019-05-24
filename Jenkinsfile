@@ -31,18 +31,28 @@ node {
            // }
     
     stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'LocalSonarScanner'
-    }
-    steps {
-        withSonarQubeEnv('sonarqube') {
+    //environment {
+       // scannerHome = tool 'LocalSonarScanner'
+    //}
+    //steps {
+      //  withSonarQubeEnv('sonarqube') {
             // sh "${scannerHome}/bin/sonar-scanner"
-            ss = bat returnStdout: true, script: "%scannerHome%/bin/sonar-scanner.bat"
-        }
-        timeout(time: 10, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-        }
-        print ss
+        //    ss = bat returnStdout: true, script: "%scannerHome%/bin/sonar-scanner.bat"
+        //}
+        //timeout(time: 10, unit: 'MINUTES') {
+          //  waitForQualityGate abortPipeline: true
+       // }
+       // print ss
+    //}
+//}
+        stage("Quality Gate"){
+    timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
+    def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+    if (qg.status != 'OK') {
+        error "Pipeline aborted due to quality gate failure: ${qg.status}"
     }
+        else{
+            print "SUCCESS"
+  }
 }
 }
