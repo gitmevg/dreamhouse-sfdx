@@ -60,7 +60,7 @@ node {
                     error "Pipeline aborted due to quality gate failure: ${qg.status}"
                 }
                 else {
-                    print "Results are ok: ${qg.status}"   
+                    print "Result Status: ${qg.status}"   
                 }
             }
         }
