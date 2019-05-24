@@ -20,31 +20,11 @@ node {
     println CONNECTED_APP_CONSUMER_KEY
     //def toolbelt = tool 'toolbelt'
 
-    stage('GIT Clone') {
-        // when running in multi-branch job, one must issue this command
-        checkout scm
-    }
-   // if (isUnix()) {
-     //            rc = sh returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-       //     }else{
-         //        rc = bat returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-           // }
-    
-    //stage('Sonarqube') {
-    //environment {
-       // scannerHome = tool 'LocalSonarScanner'
-    //}
-    //steps {
-      //  withSonarQubeEnv('sonarqube') {
-            // sh "${scannerHome}/bin/sonar-scanner"
-        //    ss = bat returnStdout: true, script: "%scannerHome%/bin/sonar-scanner.bat"
-        //}
-        //timeout(time: 10, unit: 'MINUTES') {
-          //  waitForQualityGate abortPipeline: true
-       // }
-       // print ss
-    //}
-//}
+        stage('GIT Clone') {
+            // when running in multi-branch job, one must issue this command
+            checkout scm
+        }
+
         stage('SonarQube Analysis') {
             // requires SonarQube Scanner 2.8+
             def scannerHome = tool 'LocalSonarScanner';
