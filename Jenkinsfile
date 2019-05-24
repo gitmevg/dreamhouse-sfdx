@@ -42,6 +42,7 @@ node {
                 else {
                     print "Result Status: ${qg.status}"   
                 }
+                print "Checking if looped is skipped, if printed then not skipped"
             }
         }
 }
