@@ -49,7 +49,7 @@ node {
     // requires SonarQube Scanner 2.8+
     def scannerHome = tool 'LocalSonarScanner';
     withSonarQubeEnv('LocalSonarScanner') {
-      bat "${scannerHome}/bin/sonar-runner.bat"
+      bat "${scannerHome}/bin/sonar-scanner.bat"
     }
   }
 }
