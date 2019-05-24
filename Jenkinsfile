@@ -48,7 +48,7 @@ node {
         stage('SonarQube analysis') {
     // requires SonarQube Scanner 2.8+
     def scannerHome = tool 'LocalSonarScanner';
-    withSonarQubeEnv('SonarQube') {
+    withSonarQubeEnv('LocalSonarScanner') {
       bat "${scannerHome}/bin/sonar-runner.bat"
     }
   }
