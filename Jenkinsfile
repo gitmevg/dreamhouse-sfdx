@@ -37,7 +37,7 @@ node {
     steps {
         withSonarQubeEnv('sonarqube') {
             // sh "${scannerHome}/bin/sonar-scanner"
-            ss = bat returnStdout: true, script: "%scannerHome%\bin\sonar-scanner.bat"
+            ss = bat returnStdout: true, script: "%scannerHome%/bin/sonar-scanner.bat"
         }
         timeout(time: 10, unit: 'MINUTES') {
             waitForQualityGate abortPipeline: true
